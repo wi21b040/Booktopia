@@ -1,0 +1,84 @@
+main {
+    margin-top: 100px;
+}
+
+body {
+    padding-top: 10px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* START styling of navbar */
+.navbar {
+    background-color: #1a5276;
+}
+
+#logo-nav {
+    max-height: 50px;
+}
+
+.navbar a {
+    color: white;
+}
+
+/*make burger menu white*/
+.navbar-toggler {
+    border: 1px solid white;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+#navbar-dropdown-menu {
+    background-color: #1a5276;
+    right: 0
+}
+
+.navbar-nav a:hover {
+    color: rgb(230, 228, 228);
+}
+
+.navbar-nav .nav-link-yellow {
+    margin-left: 20px;
+    background-color: #ffcc00;
+    color: #143e58;
+    border-radius: 3px;
+}
+
+.navbar-nav .nav-link-yellow:hover {
+    background-color: #ffd940;
+    color: #143e58;
+}
+
+.navbar-nav a:focus {
+    color: rgb(230, 228, 228);
+}
+
+.dropdown-menu a:hover {
+    color: #143e58;
+}
+
+/*slogan*/
+/*Bug: Google Font is not responsive*/
+.lead-slogan {
+    color: #fff;
+    font-size: 4em;
+    margin-bottom: 50px;
+    font-family: "Passions Conflict", sans-serif;
+}
+
+.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+.navbar-text {
+    color: white;
+}
+
+/* END styling of navbar */
