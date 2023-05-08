@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <a class="navbar-brand " href="index.php">
-        <img id="logo-nav" src=".\Frontend\res\img\logo-bookstopia.png" alt="Logo Bookstopia">
+        <img id="logo-nav" src="../res/img/logo-bookstopia.png" alt="Logo Bookstopia">
     </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -12,7 +12,7 @@
 
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                <a class="nav-link active" aria-current="page" href="../sites/index.php">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Produkte</a>
@@ -21,7 +21,7 @@
                 <a class="nav-link" href="#">Über uns</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Registrierung</a>
+                <a class="nav-link" href="../sites/registration.php">Registrierung</a>
             </li>
             <!-- <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>

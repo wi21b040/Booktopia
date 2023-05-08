@@ -9,35 +9,43 @@ body {
     flex-direction: column;
 }
 
-/* START styling of navbar */
-.navbar {
-    background-color: #1a5276;
+.content {
+    margin: 30px 0 100px;
 }
+
+.headline {
+    margin: 30px 0 30px 0;
+}
+
+/* START styling of navbar */
+/* .navbar {
+    background-color: #1a5276;
+} */
 
 #logo-nav {
     max-height: 50px;
 }
 
 .navbar a {
-    color: white;
+    color: black;
 }
 
 /*make burger menu white*/
 .navbar-toggler {
-    border: 1px solid white;
+    border: 1px solid black;
 }
 
 .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 #navbar-dropdown-menu {
-    background-color: #1a5276;
+    background-color: lightgrey;
     right: 0
 }
 
 .navbar-nav a:hover {
-    color: rgb(230, 228, 228);
+    color: rgb(138, 136, 136);
 }
 
 .navbar-nav .nav-link-yellow {
@@ -53,20 +61,11 @@ body {
 }
 
 .navbar-nav a:focus {
-    color: rgb(230, 228, 228);
+    font-weight: bold;
 }
 
 .dropdown-menu a:hover {
     color: #143e58;
-}
-
-/*slogan*/
-/*Bug: Google Font is not responsive*/
-.lead-slogan {
-    color: #fff;
-    font-size: 4em;
-    margin-bottom: 50px;
-    font-family: "Passions Conflict", sans-serif;
 }
 
 .fixed-top {
@@ -82,3 +81,10 @@ body {
 }
 
 /* END styling of navbar */
+
+/* START styling of footer */
+
+footer {
+    margin-top: 150px;
+    padding: 20px;
+}
