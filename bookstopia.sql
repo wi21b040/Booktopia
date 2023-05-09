@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 07. Mai 2023 um 21:12
+-- Erstellungszeit: 09. Mai 2023 um 19:03
 -- Server-Version: 10.4.27-MariaDB
 -- PHP-Version: 8.2.0
 
@@ -48,7 +48,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userid`, `salutation`, `firstName`, `lastName`, `address`, `postcode`, `location`, `creditCard`, `email`, `username`, `password`, `active`, `admin`) VALUES
-(18, 'Frau', 'Master', 'Master', 'Master 1', 1111, 'Master', 0, 'Master@bookstopia.at', 'Master', 'masterpw ', 1, 1);
+(18, 'Frau', 'Master', 'Master', 'Master 1', 1111, 'Master', 0, 'Master@bookstopia.at', 'Master', 'masterpw ', 1, 1),
+(19, 'Frau', 'Test', 'Admin', 'Weg 1', 1010, 'Wien', 12345678, 'admin@test.at', 'testAdmin', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', 1, 1);
 
 --
 -- Indizes der exportierten Tabellen
@@ -69,7 +70,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT für Tabelle `user`
 --
 ALTER TABLE `user`
-  MODIFY `userid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `userid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
