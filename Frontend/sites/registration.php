@@ -8,61 +8,61 @@ $errors = array();
 $password = $passwordconfirmed = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!empty($_POST["salutation"])) {
+    if (isset($_POST["salutation"]) && !empty($_POST["salutation"])) {
     $salutation = $_POST["salutation"];
     }else{
         $errors['errorSalutation']="Das Feld Anrede muss ausgefüllt sein!";
     }
 
-    if (!empty($_POST["firstName"])) {
+    if (isset($_POST["firstName"]) && !empty($_POST["firstName"])) {
     $firstName = $_POST["firstName"];
     }else{
         $errors['errorFirstName']="Das Feld Vorname muss ausgefüllt sein!";
     }
 
-    if (!empty($_POST["lastName"])) {
+    if (isset($_POST["lastName"]) && !empty($_POST["lastName"])) {
     $lastName = $_POST["lastName"];
     }else{
         $errors['errorLastName']="Das Feld Nachname muss ausgefüllt sein!";
     }
 
-    if (!empty($_POST["address"])) {
+    if (isset($_POST["address"]) && !empty($_POST["address"])) {
     $address = $_POST["address"];
     }else{
         $errors['errorAddress']="Das Feld Adresse muss ausgefüllt sein!";
     }
 
-    if (!empty($_POST["postcode"])) {
+    if (isset($_POST["postcode"]) && !empty($_POST["postcode"])) {
     $postcode = $_POST["postcode"];
     }else{
         $errors['errorPostcode']="Das Feld PLZ muss ausgefüllt sein!";
     }
 
-    if (!empty($_POST["location"])) {
+    if (isset($_POST["location"]) && !empty($_POST["location"])) {
     $location = $_POST["location"];
     }else{
         $errors['errorLocation']="Das Feld Ort muss ausgefüllt sein!";
     }
 
-    if (!empty($_POST["email"])) {
+    if (isset($_POST["passwordemail"]) && !empty($_POST["email"])) {
     $email = $_POST["email"];
     }else{
         $errors['errorEmail']="Das Feld E-Mail muss ausgefüllt sein!";
     }
 
-    if (!empty($_POST["username"])) {
+    if (isset($_POST["username"]) && !empty($_POST["username"])) {
     $username = $_POST["username"];
     }else{
         $errors['errorUsername']="Das Feld Benutzername muss ausgefüllt sein!";
     }
 
-    if (!empty($_POST["password"])) {
-    $password= $_POST["password"];
+    if (isset($_POST["password"]) && !empty($_POST["password"])) {
+    $password = hash("sha512", $_POST["password"]);
     }else{
         $errors['errorPassword']="Das Feld Passwort muss ausgefüllt sein!";
     }
 
-    if (!empty($_POST["passwordConfirmed"])) {
+    if (isset($_POST["passwordConfirmed"]) && !empty($_POST["passwordConfirmed"])) {
     $passwordconfirmed= $_POST["passwordConfirmed"];
     }else{
         $errors['passwordConfirmedError']="Das Feld Passwort bestätigen muss ausgefüllt sein!";
@@ -72,12 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['errorPassword']= "Die Passwörter stimmen nicht überein!";
     }
 
-    if (!empty($_POST["creditCard"])) {
+    if (isset($_POST["creditCard"]) && !empty($_POST["creditCard"])) {
     $creditCard = $_POST["creditCard"];
     }
 
     if(empty($errors)){
-        header('Location: submit.php'); 
+        echo "<script>alert('Sie haben sich erfolgreich registriert. Bitte loggen Sie sich ein um den Kundenbereich zu nutzen.');</script>";
+        header('Refresh: 1; URL = login.php'); 
         }
     }
 ?>
@@ -106,16 +107,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <section>
                     <div class="row">
                         <h1 class="headline">Registrierung</h1>
-                        <form method="post" action="submit.php">
+                        <?php $pathToSubmit = (dirname(__FILE__,4) . "\config\submit.php")?>
+                        <form method="post" action="<?php $pathToSubmit?>">
 
-                            <div class="col-md-9 mb-md-0 mb-5">
+                            <div class=" col-md-9 mb-md-0 mb-5">
                                 <div class="col-md-6">
                                     <div class="md-form mb-2">
-                                        <label for="salutation">Anrede:</label><br>
-                                        <select name="salutation" style="padding-left: 40px;margin-bottom: 25px;"
-                                            class="form-control">
+                                        <label for="salutation">Anrede: *</label><br>
+                                        <select name="salutation" style="margin-bottom: 25px;" class="form-control">
+                                            <option disabled selected value> -- Anrede auswählen -- </option>
                                             <option value="Frau">Frau</option>
                                             <option value="Herr">Herr</option>
+                                            <option value="Divers">Divers</option>
                                         </select>
 
                                         <label for="firstName">Vorname:</label><br>
@@ -180,8 +183,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         </div>
 
                                         <br>
-                                        <button type="submit"
-                                            style="background-color:black;color:white;">Registrieren</button>
+                                        <button type=" submit" style="background-color:black;color:white;">
+                                            Registrieren</button>
 
                         </form>
                     </div>
