@@ -5,6 +5,7 @@
    $dbpassword = ""; //derzeit noch kein Passwort gesetzt
    $db = "bookstopia";
    $tbl_user = "user";
+   $tbl_book = "book";
 
     // Create connection
    $con = new mysqli($dbhost, $dbuser, $dbpassword, $db);
