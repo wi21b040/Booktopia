@@ -13,7 +13,7 @@
 <body>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
-        <?php include "components/navGuest.php";?>
+        <?php include "components/navBar.php";?>
     </nav>
 
     <main>
@@ -32,8 +32,6 @@
     <footer class="py-3 my-4 fixed-bottom">
         <?php include "components/footer.php";?>
     </footer>
-
-
 
 </body>
 

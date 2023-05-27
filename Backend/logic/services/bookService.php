@@ -1,8 +1,5 @@
 <?php
 
-require (dirname(__FILE__,4) . "\config\dbaccess.php");
-require (dirname(__FILE__,4) . "\models\book.php");
-
 $bookid = $title = $author = $publisher = $isbn = $year = $genre = $language = $price = $description = $image = $stock = "";
 
 

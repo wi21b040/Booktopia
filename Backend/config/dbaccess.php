@@ -14,7 +14,8 @@
    if($con->connect_error) {
        die("Connection failed: " . $con->connect_error);
    }
-    echo "Connected successfully!";
+    //echo console.log "Connected successfully!"
+    echo "<script>console.log('Connected successfully!');</script>";
 
     /*
     // Create new data
@@ -29,7 +30,7 @@
     */
     
     // Read data
-    $sql = "SELECT * FROM user";
+    /* $sql = "SELECT * FROM user";
     $result = $con->query($sql);
 
     if ($result->num_rows > 0) {
@@ -40,9 +41,9 @@
         }
     } else {
         echo "0 results";
-    }
+    } */
 
     // Close connection
-    $con->close();
+    //$con->close();
   
   ?>
