@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 09. Mai 2023 um 19:03
+-- Erstellungszeit: 27. Mai 2023 um 20:20
 -- Server-Version: 10.4.27-MariaDB
 -- PHP-Version: 8.2.0
 
@@ -49,7 +49,12 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`userid`, `salutation`, `firstName`, `lastName`, `address`, `postcode`, `location`, `creditCard`, `email`, `username`, `password`, `active`, `admin`) VALUES
 (18, 'Frau', 'Master', 'Master', 'Master 1', 1111, 'Master', 0, 'Master@bookstopia.at', 'Master', 'masterpw ', 1, 1),
-(19, 'Frau', 'Test', 'Admin', 'Weg 1', 1010, 'Wien', 12345678, 'admin@test.at', 'testAdmin', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', 1, 1);
+(19, 'Frau', 'Test', 'Admin', 'Weg 1', 1010, 'Wien', 12345678, 'admin@test.at', 'testAdmin', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', 1, 1),
+(20, 'Frau', 'Alex', 'Maier', 'Test 1', 1000, 'Wien', 1, 'alex@test.at', 'testUser1', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', 1, 0),
+(29, 'Herr', 'Lukas', 'Maier', 'Weg 1', 1000, 'Wien', 1, 'lukas@test.at', 'testUser2', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', 1, 0),
+(30, 'Frau', 'Klara', 'Weiss', 'Weg 1', 1000, 'Wien', 1, 'klara@test.at', 'testUser3', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', 1, 0),
+(31, 'Divers', 'Gil', 'Maurer', 'Straße 1', 3000, 'Wien', 1, 'gil@test.at', 'testUser4', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', 1, 0),
+(32, 'Frau', 'Mia', 'Gruber', 'Test 1', 1000, 'Wien', 1, 'mia@test.at', 'testUser6', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', 1, 0);
 
 --
 -- Indizes der exportierten Tabellen
@@ -70,7 +75,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT für Tabelle `user`
 --
 ALTER TABLE `user`
-  MODIFY `userid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `userid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
