@@ -1,6 +1,8 @@
 <?php
 
-require(dirname(__FILE__, 3) . "/config/dbaccess.php");
+//require(dirname(__FILE__, 3) . "/config/dbaccess.php");
+require (dirname(__FILE__, 2) . "\session.php");
+
 
 $salutation = $firstName = $lastName = $address = $postcode = $location = $creditCard = $email = $username = $password = "";
 
@@ -83,9 +85,9 @@ class UserService {
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         
-        echo " " . $row['username'];
+        echo " username if user exists in userServie.php: " . $row['username'];
         
-        if ($result -> num_rows > 0) {
+        if ($result->num_rows > 0) {
             // User already exists
 
             echo " User exists";
@@ -128,10 +130,8 @@ class UserService {
     public function loginUser($username, $password) {
 
         echo "<script>console.log('loginUser in userServie.php reached');</script>";
-        // echo console.log $username and $password
-        echo "<script>console.log('username: " . $username . "');</script>";
-        echo "<script>console.log('password: " . $password . "');</script>";
-        
+        echo "username: " . $username;
+        echo "password: " . $password;        
         
         // check if user exists with prepared statement
         $sql = "SELECT * FROM user WHERE username = ?";
@@ -140,17 +140,16 @@ class UserService {
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
-        echo "<script>console.log('result 1: " . $row['username'] . "');</script>";
-        echo "<script>console.log('result 1: " . $row['password'] . "');</script>";
-
+        
+        echo " username if user exists in userServie.php: " . $row['username'];
+        echo " password if user exists in userServie.php: " . $row['password'];
 
         
-        if ($result -> num_rows > 0) {
+        if ($result->num_rows > 0) {
+
+            // User exists            
+            echo " User exists";
             
-            // !!! BUG --> Result is empty !!! --> siehe FH Unterlagen wie man hashed passwords vergleicht
-            
-            echo "<script>console.log('passed check if user exists in userServie.php reached');</script>";
-            // User exists
             // check if password is correct with prepared statement (password is sha256 hashed)
             $sql = "SELECT * FROM user WHERE username = ? AND password = ?";
             $stmt = $this->con->prepare($sql);
@@ -158,30 +157,39 @@ class UserService {
             $stmt->execute();
             $result = $stmt->get_result();
             $row = $result->fetch_assoc();
-            echo "<script>console.log('passed check process executed in userServie.php reached');</script>";
-            echo "<script>console.log('result username: " . $row['username'] . "');</script>";
-            echo "<script>console.log('result password: " . $row['password'] . "');</script>";
-
             
-            if ($result -> num_rows > 0) {
-                echo "<script>console.log('passed check if password is correct in userServie.php reached');</script>";
-                // password correct
-                // login user
-                session_start();
+            echo " data from database if entered data matches " . $row['username'] . " " . $row['password'];
+            
+            if ($result->num_rows > 0) {
+
+                // entered data matches data in database
+                echo " passed check process executed in userServie.php reached ";
+                echo " result username: " . $row['username'];
+                echo " result password: " . $row['password'];
+
+                // set cookies
+                $cookie_name = "username";
+                $cookie_value = $username;
+                setcookie($cookie_name, $cookie_value, time() + (86400 * 30)); // 86400 = 1 day / secure, http only
+                
+
+                
+                // set session variables
                 $_SESSION['username'] = $username;
-                // get userid, admin and active from query saved in $result
+                // get userid, admin and active from query saved in $result in userService.php
                 $_SESSION['userid'] = $row['userid'];
                 $_SESSION['admin'] = $row['admin'];
                 $_SESSION['active'] = $row['active'];
-                
-                echo "<script>console.log('user successfully logged in in userServie.php reached');</script>";
-                echo "<script>console.log('username: " . $_SESSION['username'] . "');</script>";
-                echo "<script>console.log('userid: " . $_SESSION['userid'] . "');</script>";
-                echo "<script>console.log('admin: " . $_SESSION['admin'] . "');</script>";
-                echo "<script>console.log('active: " . $_SESSION['active'] . "');</script>";              
+                          
+                echo " session variables:";
+                echo " session username: " . $_SESSION['username'];
+                echo " sesion userid: " . $_SESSION['userid'];
+                echo " session admin: " . $_SESSION['admin'];
+                echo " sessioni active: " . $_SESSION['active'];              
                 
                 //header("Refresh:0; url=../../../Booktopia/Frontend/sites/index.php");
                 return true;
+                
             } else {
                 // password incorrect
                 // error - password incorrect
@@ -190,6 +198,46 @@ class UserService {
         } else {
             // error - user not found
             return false;
+        }
+    }
+
+    /* public function logoutUser() {
+
+        echo " logoutUser in userServie.php reached";
+
+        // remove all session variables
+        session_unset();
+
+        // destroy the session
+        session_destroy();
+
+    } */
+
+
+    // get session variables
+    public function getSession() {
+
+        echo " getSession in userServie.php reached";
+
+        $userSession = array();
+
+        // check if user is logged in and which role he has
+        if (isset($_SESSION["userid"]) && $_SESSION["active"] == 1) {
+            
+            $userSession['sessionUsername'] = $_SESSION['username'];
+            $userSession['sessionUserid'] = $_SESSION['userid'];
+            $userSession['sessionAdmin'] = $_SESSION['admin'];
+            $userSession['sessionActive'] = $_SESSION['active'];
+
+            // echo username from userSession array
+            echo " username from userSession array in userService.php: " . $userSession['sessionUsername'];
+            
+            return $userSession;
+            
+            
+        } else {
+            echo " GUEST: session variables not set";
+            return $userSession;
         }
     }
 

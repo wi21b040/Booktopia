@@ -25,7 +25,7 @@
                 <h1 class="headline">Login</h1>
 
                 <div class="row col-md-6">
-                    
+
                     <form class="data-form" id="loginForm" action="login.php" method="post" autocomplete="on">
                         <!-- <form class="data-form" id="loginForm" action="../../Backend/logic/services/userService.php"
                             method="post" autocomplete="on"> -->
@@ -56,6 +56,8 @@
                             <input type="checkbox" id="rememberMeLogin" name="save">
                             <label for="save">Login merken</label>
                         </div>
+
+                        <div class="mb-4 errors" id="errorLogin"></div>
 
                         <div class="mb-5">
                             <button type="button" name="btnSubmitLogin" class="btn btn-primary"

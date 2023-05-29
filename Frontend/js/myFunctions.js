@@ -9,26 +9,17 @@ $(document).ready(function () {
     // when clicked button with id="btnSubmitLogin" in login.php call function loginUser()"
     $("#btnSubmitLogin").on("click", function() {
         console.log("loginUser() called");
-        var username = $("#usernameLogin").val();
-        var password = $("#passwordLogin").val();
-        loginUser(username, password);
+        loginUser();
     });
 
     $("#btnSubmitRegistration").on("click", function () {
-        /* var salutation = $("#salutationRegistration").val();
-        var firstName = $("#firstNameRegistration").val();
-        var lastName = $("#lastNameRegistration").val();
-        var address = $("#addressRegistration").val();
-        var postcode = $("#postcodeRegistration").val();
-        var location = $("#locationRegistration").val();
-        var email = $("#emailRegistration").val();
-        var username = $("#usernameRegistration").val();
-        var password = $("#passwordRegistration").val();
-        var passwordConfirmed = $("#passwordConfirmedRegistration").val();
-        var creditCard = $("#creditCardRegistration").val();
-        console.log("registerUser() called"); */
+        console.log("registerUser() called");
         registerUser();
-        //registerUser(salutation, firstName, lastName, address, postcode, location, email, username, password, passwordConfirmed, creditCard);
+    });
+
+    $("#navLougout").on("click", function() {
+        console.log("logoutUser() called");
+        logoutUser();
     });
 
 
@@ -36,78 +27,100 @@ $(document).ready(function () {
 
 
 function loadNavBar() {
-    $.ajax({
-        type: "GET",
-        url: "../../Backend/logic/session.php",
-        dataType: "html",
-        cache: false,
-        success: function (response) {
 
-            console.log(response);
+    var userSession = getSessionVariables();
 
-            if (response == "admin") {
-                // show logout, profile, products, customers, vouchers / hide register, login, shopping cart
-                /* $("#logout").show();
-                $("#profile").show();
-                $("#products").show();
-                $("#customers").show();
-                $("#vouchers").show(); */
+    console.log(userSession);
+
+    var sessionUsername = userSession['username'];
+    var sessionUserid = userSession['userid'];
+    var sessionAdmin = userSession['admin'];
+    var sessionActive = userSession['active'];
+
+    console.log("username: " + sessionUsername);
+    console.log("userid: " + sessionUserid);
+    console.log("admin: " + sessionAdmin);
+    console.log("active: " + sessionActive);
+
+    if (sessionUsername != null && sessionActive != 0) {
+        
+        if (sessionAdmin == 1) {
+            console.log("returned admin from session.php");
+            // show logout, profile, products, customers, vouchers / hide register, login, shopping cart
+            /* $("#logout").show();
+            $("#profile").show();
+            $("#products").show();
+            $("#customers").show();
+            $("#vouchers").show(); */
+            
+            $("#navRegister").hide();
+            $("#navShoppingCart").hide();
+            $("#navLogin").hide();
+
+            // append welcome message with <li> and <span> to id="navSearch"
+            $("#navSearch").append("<li class='nav-item' id='navWelcomeUser'><span>Willkkommen " + sessionUsername + "!</span></li>");
+            
                 
-                $("#navRegister").hide();
-                $("#navShoppingCart").hide();
-                $("#navLogin").hide();
-
-            } else if (response == "user"){
-                // show logout and profile / hide register, login, products, customers, vouchers
-                /* $("#logout").show();
-                $("#profile").show(); */
-
-                $("#navRegister").hide();                
-                $("#navManageProducts").hide();
-                $("#navManageCustomers").hide();
-                $("#navManageVouchers").hide();
-                $("#navLogin").hide();
-
-            } else if (response == "guest"){
-                // show register and login / hide logout, profile, products, customers, vouchers
-                /* $("#register").show();
-                $("#login").show(); */
-
-                $("#navManageProducts").hide();
-                $("#navManageCustomers").hide();
-                $("#navManageVouchers").hide();
-                $("#navProfile").hide();
-                $("#navLougout").hide();
-
-            } else {
-                //echo("Error: " + response);
-            }
-        },
-
-        error: function () {
-            // Error handling
+        } else if (sessionAdmin == 0){
+    
+            console.log("returned user from session.php");
+    
+    
+            // show logout and profile / hide register, login, products, customers, vouchers
+            /* $("#logout").show();
+            $("#profile").show(); */
+    
+            $("#navRegister").hide();                
+            $("#navManageProducts").hide();
+            $("#navManageCustomers").hide();
+            $("#navManageVouchers").hide();
+            $("#navLogin").hide();
+    
         }
-    });
+
+
+    } else {
+
+        console.log("returned guest from session.php");
+
+        // show register and login / hide logout, profile, products, customers, vouchers
+        /* $("#register").show();
+        $("#login").show(); */
+
+        $("#navManageProducts").hide();
+        $("#navManageCustomers").hide();
+        $("#navManageVouchers").hide();
+        $("#navProfile").hide();
+        $("#navLougout").hide();
+
+    }
+
+
+    
 }
 
 
-function loginUser(username, password) {
+function loginUser() {
 
-    password = hashPasswordWithSHA512(password);
-    console.log("HashedPassword before ajax call:");
-    console.log(password);
+    var username = $("#usernameLogin").val();
+    var password = $("#passwordLogin").val();
 
     // Client validation username and password
     if (username == "" || password == "") {
-        // Append error message to id="loginForm"
-        $("#loginForm").append("<p style='color:red; font-weight:bold;'><small>Bitte Username und Passwort angeben!</small></p>");
+        console.log("Client validation failed!");
+        $("#errorLogin").append("<p style='color:red; font-weight:bold;'>Bitte alle Felder ausfüllen!</p>");
         // noch ein hide einfügen, damit Error Nachricht wieder verschwindet
         return;
     }
 
+    console.log("username: " + username);
+
+    password = hashPasswordWithSHA512(password);
+    console.log("Login - HashedPassword before ajax call:");
+    console.log(password); 
 
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: "../../Backend/api.php",
         data: {
             username: username,
@@ -118,6 +131,11 @@ function loginUser(username, password) {
         success: function (response) {
 
             console.log("Response from loginUser():");
+            console.log(response);
+            alert('Sie wurden erfolgreich eingeloggt.');
+            window.location.href = "../sites/index.php";
+
+
             //if (response === "success") {
                 // Erfolgreich eingeloggt
                 // Hier kannst du entsprechende Aktionen durchführen, z.B. Weiterleitung zur Startseite
@@ -130,8 +148,6 @@ function loginUser(username, password) {
                 // Redirect to index.html
 
                 //window.location.href = "../sites/index.php";
-                console.log(response);
-
 
             //} else if (response === "error") {
                 // Fehler beim Einloggen
@@ -147,7 +163,7 @@ function loginUser(username, password) {
         error: function () {
             // Fehler beim AJAX-Aufruf
             // Hier kannst du eine Fehlermeldung anzeigen oder andere Aktionen durchführen
-            $("#loginForm").append("<p style='color:red; font-weight:bold;'>Fehler beim Login AJAX Aufruf!</p>");
+            //$("#errorLogin").append("<p style='color:red; font-weight:bold;'>Fehler beim Login AJAX Aufruf!</p>");
         }
     });
 }
@@ -232,7 +248,7 @@ function registerUser() {
         cache: false,
         success: function (response) {
 
-            console.log("Response from loginUser():");
+            console.log("Response from registerUser():");
             console.log(response);
             alert('Sie wurden erfolgreich registriert, bitte loggen Sie sich ein, um fortzufahren.');
             window.location.href = "../sites/index.php";
@@ -246,6 +262,64 @@ function registerUser() {
 
     
 
+function logoutUser() {
+
+    console.log("logoutUser() reached in myFunctions.js");
+
+    $.ajax({
+        type: "GET",
+        url: "../../Backend/logic/logout.php",
+        dataType: "html",
+        cache: false,
+        success: function (response) {
+            console.log("Response from logoutUser():");
+            console.log(response);
+            alert('Sie wurden erfolgreich ausgeloggt.');
+        },
+
+        error: function () {
+            // Error handling
+            console.log("Error in error function of logoutUser()");
+            alert("Error in error function of logoutUser()");
+        }
+    });
+    window.location.href = "../sites/index.php";
+}
+
+
+function getSessionVariables() {
+
+    var userSession = [];
+
+    $.ajax({
+        type: "GET",
+        url: "../../Backend/api.php" + "?getSession",
+        dataType: "html",
+        cache: false,
+        success: function (response) {
+
+            console.log("Response from getSessionVariables():");
+            console.log(response);
+
+            // !!! BUG respons returns undefined array
+
+
+            // save responded array received via api.php
+            userSession = response;
+            console.log("username returned from api.php in function.js " + userSession['sessionUsername']);
+            
+        },
+
+        error: function () {
+            // Error handling
+            console.log("Error in error function of getSessionVariables()");
+        }
+    });
+
+   return userSession;
+
+}
+
     
 
 
@@ -253,7 +327,25 @@ function registerUser() {
 
 
 
-function loadHead() {
+
+
+function hashPasswordWithSHA512(password) {
+    var hashedPassword = CryptoJS.SHA512(password).toString();
+    return hashedPassword;
+}
+
+
+/* function validate(input) {
+    if (input == "") {
+        // add following message to div 'errorRegistration'
+        $("#errorRegistration").append("<p style='color:red; font-weight:bold;'>Bitte alle Felder ausfüllen!</p>");
+        return;
+    }
+} */
+
+
+
+/* function loadHead() {
     $.ajax({
         type: "GET",
         url: "../Frontend/sites/components/head.html",
@@ -279,35 +371,10 @@ function loadFooter() {
         }
     });
     //$("head").load("./Frontend/sites/components/head.html");
-}
+} */
 
-function hashPasswordWithSHA512(password) {
-    var hashedPassword = CryptoJS.SHA512(password).toString();
-    return hashedPassword;
-}
-
-
-function validate(input) {
-    if (input == "") {
-        // add following message to div 'errorRegistration'
-        $("#errorRegistration").append("<p style='color:red; font-weight:bold;'>Bitte alle Felder ausfüllen!</p>");
-        return;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-(function() {
+/* (function() {
     //$("head").load(".Frontend/sites/components/head.html");
     $("nav").load("./Frontend/sites/components/nav.html");
     $("footer").load("./Frontend/sites/components/nav.html");
-   });
+   }); */

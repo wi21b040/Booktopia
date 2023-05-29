@@ -64,7 +64,49 @@ class Api {
         // Verarbeitung von GET-Anfragen
         // Hier können verschiedene GET-Anfragen an die entsprechenden Services weitergeleitet werden.
         // Beispiel:
+
+        // login user 
+        if (isset($_GET["username"]) && isset($_GET["password"])) {
+            
+            echo "<script>console.log('processGet - loginUser - in api.php reached');</script>";
+            
+            // Verarbeite Login
+            $username = $_GET["username"];
+            $password = $_GET["password"];
+            echo "username in api.php: " . $username . "<br>";
+            echo "password in api.php: " . $password . "<br>";
+            
+            $userLoggedIn = $this->userService->loginUser($username, $password);
+
+                if ($userLoggedIn) {
+                    echo " user successfully logged in api.php";
+                    // $this -> success(200,  "Login erfolgreich!");
+                } else {
+                    echo " user not logged api.php";
+                    // $this -> error(401, "Login fehlgeschlagen!", []);                
+                }
+            
+        } elseif (isset($_GET['getSession'])) {
+
+            echo " processGet - getSession - in api.php reached";
+
+            $userSession = $this->userService->getSession();
+
+            echo " username from userSession array in api.php: " . $userSession['sessionUsername'];
+
+            return $userSession;
         
+        } /* elseif (isset($_GET['logout'])) {
+
+            echo " processGet - logoutUser - in api.php reached";
+            
+            // Verarbeite Logout
+            $this->userService->logoutUser();
+        } */
+
+
+
+            
         /* if (isset($_GET["users"])) {
             $users = $this->userService->findAll();
             $this->success(200, $users);
@@ -87,6 +129,7 @@ class Api {
             echo "<script>console.log('Empty post request');</script>";
         }
         
+        // register user
         elseif (isset($_POST["user"])) { 
             // User erstellen
             echo "console.log('processPost - saveUser - in api.php reached');";
@@ -98,7 +141,7 @@ class Api {
             $this->userService->saveUser($user);
         }
         
-        else if (isset($_POST["username"]) && isset($_POST["password"])) {
+        /* else if (isset($_POST["username"]) && isset($_POST["password"])) {
             
             echo "<script>console.log('processPost - loginUser - in api.php reached');</script>";
             
@@ -110,15 +153,15 @@ class Api {
                 if ($userLoggedIn) {
                     $this -> success(200,  "Login erfolgreich!");
                 } else {
-                    $this -> error(401, "Login fehlgeschlagen!", []);}
+                    $this -> error(401, "Login fehlgeschlagen!", []);} */
                     
        /*  
         } elseif (isset($_GET["book"])) {
             // Produkt erstellen
-            // $this->productService->createBook(); */
+            // $this->productService->createBook(); 
         
             
-        } else {
+        } */ else {
             $this->error(400, "Bad Request - invalide Parameter" . http_build_query($_GET), []);
         }
     }
