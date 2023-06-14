@@ -217,7 +217,7 @@ class UserService {
     // get session variables
     public function getSession() {
 
-        echo " getSession in userServie.php reached";
+        echo " // getSession in userServie.php reached";
 
         $userSession = array();
 
@@ -230,13 +230,19 @@ class UserService {
             $userSession['sessionActive'] = $_SESSION['active'];
 
             // echo username from userSession array
-            echo " username from userSession array in userService.php: " . $userSession['sessionUsername'];
+            echo " // username from userSession array in userService.php: " . $userSession['sessionUsername'];
             
             return $userSession;
             
             
         } else {
-            echo " GUEST: session variables not set";
+            echo " // GUEST: session variables not set";
+
+            $userSession['sessionUsername'] = "GUEST";
+            $userSession['sessionUserid'] = "";
+            $userSession['sessionAdmin'] = 0;
+            $userSession['sessionActive'] = 0;
+            
             return $userSession;
         }
     }

@@ -9,6 +9,6 @@ session_unset();
 session_destroy();
 
 //gehe zu Startseite
-header('Refresh: 0; URL = ../index.php');
+header('Refresh: 0; URL = ../../Frontend/sites/index.php');
 
 ?>

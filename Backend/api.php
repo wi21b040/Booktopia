@@ -88,13 +88,15 @@ class Api {
             
         } elseif (isset($_GET['getSession'])) {
 
-            echo " processGet - getSession - in api.php reached";
+            echo " // processGet - getSession - in api.php reached";
 
             $userSession = $this->userService->getSession();
 
-            echo " username from userSession array in api.php: " . $userSession['sessionUsername'];
+            echo " // username from userSession array in api.php: " . $userSession['sessionUsername'] . "//";
 
-            return $userSession;
+            //return $userSession;
+
+            $this->success(200, $userSession);
         
         } /* elseif (isset($_GET['logout'])) {
 
@@ -200,11 +202,13 @@ class Api {
         } */
     }
     
-    
+
     // format sucess response
-    private function success ($code, $message) {
+    private function success ($code, array $array) {
         http_response_code($code);
-        echo ($message);
+        // header('Content-Type: application/json');
+        echo(json_encode($array));
+        exit;
     }
     
     // format error response

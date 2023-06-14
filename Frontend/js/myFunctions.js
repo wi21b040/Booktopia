@@ -298,15 +298,20 @@ function getSessionVariables() {
         cache: false,
         success: function (response) {
 
-            console.log("Response from getSessionVariables():");
+            console.log("Response from api.php:");
             console.log(response);
 
-            // !!! BUG respons returns undefined array
-
-
             // save responded array received via api.php
+            console.log("test");
+            // userSession = JSON.parse(response);
             userSession = response;
-            console.log("username returned from api.php in function.js " + userSession['sessionUsername']);
+            // !!! BUG:
+            // mit JSON.parse wird console.log("test2") nicht mehr ausgeführt
+            // ohne JSON.parse schon, aber dann ist userSession undefined
+            // wenn ich dataType auf json ändere komme ich in die error function
+            // auch wenn ich in api.php sucess() header('Content-Type: application/json'); verwende komme ich in die error function
+            console.log("test2");
+            console.log("username returned from api.php in getSessionVariables() in function.js: " + userSession['sessionUsername']);
             
         },
 
