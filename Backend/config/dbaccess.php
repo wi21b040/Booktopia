@@ -14,8 +14,8 @@
    if($con->connect_error) {
        die("Connection failed: " . $con->connect_error);
    }
-    //echo console.log "Connected successfully!"
-    echo "<script>console.log('Connected successfully!');</script>";
+    // echo console.log "Connected successfully!"
+    // echo "<script>console.log('Connected successfully!');</script>";
 
     /*
     // Create new data

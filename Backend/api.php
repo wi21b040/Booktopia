@@ -68,31 +68,31 @@ class Api {
         // login user 
         if (isset($_GET["username"]) && isset($_GET["password"])) {
             
-            echo "<script>console.log('processGet - loginUser - in api.php reached');</script>";
+            // echo "<script>console.log('processGet - loginUser - in api.php reached');</script>";
             
             // Verarbeite Login
             $username = $_GET["username"];
             $password = $_GET["password"];
-            echo "username in api.php: " . $username . "<br>";
-            echo "password in api.php: " . $password . "<br>";
+            // echo "username in api.php: " . $username . "<br>";
+            // echo "password in api.php: " . $password . "<br>";
             
             $userLoggedIn = $this->userService->loginUser($username, $password);
 
                 if ($userLoggedIn) {
-                    echo " user successfully logged in api.php";
+                    // echo " user successfully logged in api.php";
                     // $this -> success(200,  "Login erfolgreich!");
                 } else {
-                    echo " user not logged api.php";
+                    // echo " user not logged api.php";
                     // $this -> error(401, "Login fehlgeschlagen!", []);                
                 }
             
         } elseif (isset($_GET['getSession'])) {
 
-            echo " // processGet - getSession - in api.php reached";
+            // echo " // processGet - getSession - in api.php reached";
 
             $userSession = $this->userService->getSession();
 
-            echo " // username from userSession array in api.php: " . $userSession['sessionUsername'] . "//";
+            // echo " // username from userSession array in api.php: " . $userSession['sessionUsername'] . "//";
 
             //return $userSession;
 
@@ -128,18 +128,18 @@ class Api {
 
         if (empty($_POST)) {
             // Error
-            echo "<script>console.log('Empty post request');</script>";
+            echo "Empty post request";
         }
         
         // register user
         elseif (isset($_POST["user"])) { 
             // User erstellen
-            echo "console.log('processPost - saveUser - in api.php reached');";
+            // echo "console.log('processPost - saveUser - in api.php reached');";
             // fetch data from posted body
             //$user = file_get_contents('php://input');
             $user = $_POST["user"];
             // print firstname of array user
-            echo $user["username"];
+            // echo $user["username"];
             $this->userService->saveUser($user);
         }
         

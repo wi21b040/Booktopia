@@ -106,7 +106,7 @@ class UserService {
                 // error - user not updated
             } */
         } else {
-            echo " User does not exist";
+            // echo " User does not exist";
             // add user with prepared statement         
             $sqlIns = "INSERT INTO user (salutation, firstName, lastName, address, postcode, location, creditCard, email, username, password, active, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->con->prepare($sqlIns);
@@ -116,9 +116,9 @@ class UserService {
             
             if ($result == 1) {
                 // user created
-                echo " User created";
+                // echo " User created";
                 header("Refresh:0; url=../index.php");
-                echo "<script>alert('Bitte loggen Sie sich ein, um fortzufahren.');</script>";
+                // echo "<script>alert('Bitte loggen Sie sich ein, um fortzufahren.');</script>";
             } else {
                 // error - user not created
                 echo " ERROR - User not created";
@@ -129,9 +129,9 @@ class UserService {
     // login user with prepared statement (username and password) and server validation
     public function loginUser($username, $password) {
 
-        echo "<script>console.log('loginUser in userServie.php reached');</script>";
-        echo "username: " . $username;
-        echo "password: " . $password;        
+        // echo "<script>console.log('loginUser in userServie.php reached');</script>";
+        // echo "username: " . $username;
+        // echo "password: " . $password;        
         
         // check if user exists with prepared statement
         $sql = "SELECT * FROM user WHERE username = ?";
@@ -141,14 +141,14 @@ class UserService {
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         
-        echo " username if user exists in userServie.php: " . $row['username'];
-        echo " password if user exists in userServie.php: " . $row['password'];
+        // echo " username if user exists in userServie.php: " . $row['username'];
+        // echo " password if user exists in userServie.php: " . $row['password'];
 
         
         if ($result->num_rows > 0) {
 
             // User exists            
-            echo " User exists";
+            // echo " User exists";
             
             // check if password is correct with prepared statement (password is sha256 hashed)
             $sql = "SELECT * FROM user WHERE username = ? AND password = ?";
@@ -158,14 +158,14 @@ class UserService {
             $result = $stmt->get_result();
             $row = $result->fetch_assoc();
             
-            echo " data from database if entered data matches " . $row['username'] . " " . $row['password'];
+            // echo " data from database if entered data matches " . $row['username'] . " " . $row['password'];
             
             if ($result->num_rows > 0) {
 
                 // entered data matches data in database
-                echo " passed check process executed in userServie.php reached ";
-                echo " result username: " . $row['username'];
-                echo " result password: " . $row['password'];
+                // echo " passed check process executed in userServie.php reached ";
+                // echo " result username: " . $row['username'];
+                // echo " result password: " . $row['password'];
 
                 // set cookies
                 $cookie_name = "username";
@@ -181,11 +181,11 @@ class UserService {
                 $_SESSION['admin'] = $row['admin'];
                 $_SESSION['active'] = $row['active'];
                           
-                echo " session variables:";
+                /* echo " session variables:";
                 echo " session username: " . $_SESSION['username'];
                 echo " sesion userid: " . $_SESSION['userid'];
                 echo " session admin: " . $_SESSION['admin'];
-                echo " sessioni active: " . $_SESSION['active'];              
+                echo " sessioni active: " . $_SESSION['active']; */              
                 
                 //header("Refresh:0; url=../../../Booktopia/Frontend/sites/index.php");
                 return true;
@@ -217,7 +217,7 @@ class UserService {
     // get session variables
     public function getSession() {
 
-        echo " // getSession in userServie.php reached";
+        // echo " // getSession in userServie.php reached";
 
         $userSession = array();
 
@@ -230,13 +230,13 @@ class UserService {
             $userSession['sessionActive'] = $_SESSION['active'];
 
             // echo username from userSession array
-            echo " // username from userSession array in userService.php: " . $userSession['sessionUsername'];
+            // echo " // username from userSession array in userService.php: " . $userSession['sessionUsername'];
             
             return $userSession;
             
             
         } else {
-            echo " // GUEST: session variables not set";
+            // echo " // GUEST: session variables not set";
 
             $userSession['sessionUsername'] = "GUEST";
             $userSession['sessionUserid'] = "";
